@@ -1,0 +1,1 @@
+winget install --id Microsoft.DeploymentToolkit --version 6.3.8456.1000 --exact

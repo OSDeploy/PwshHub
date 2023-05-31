@@ -1,0 +1,1 @@
+winget install --id Microsoft.VisualStudioCode --scope machine --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"' --accept-source-agreements --accept-package-agreements

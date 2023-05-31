@@ -1,0 +1,1 @@
+winget install --id Microsoft.PowerShell --exact --accept-source-agreements --accept-package-agreements
