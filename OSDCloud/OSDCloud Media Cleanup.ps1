@@ -1,3 +1,7 @@
+#Requires -Modules @{ ModuleName="OSD"; ModuleVersion="23.5.26.1" }
+#Requires -PSEdition Desktop
+#Requires -RunAsAdministrator
+
 $KeepTheseDirs = @('boot','efi','en-us','osdcloud','sources','fonts','resources')
 
 Get-ChildItem "$(Get-OSDCloudWorkspace)\Media" | `
