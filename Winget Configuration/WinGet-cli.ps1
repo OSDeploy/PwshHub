@@ -515,13 +515,49 @@ if (Confirm-WinGet) {
 }
 #endregion
 
-$Configuration | Out-File -FilePath .\configuration.dsc.yaml -Encoding ascii
+info = winget show
+$Path = "C:\Users\$env:Username\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState"
+if ((test-path  -path $Path) -eq $true) {
+    try {
+        $originalsetting = "C:\Users\$ENV:USERNAME\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 
-winget configure show .\configuration.dsc.yaml
+      #  Write-Host -ForegroundColor DarkCyan  "search file $originalsetting"
+      #  Write-Host -ForegroundColor DarkGray "Create Backup : settings.json to settingsbackup.json"
 
-Start-Sleep -Seconds 2
-Write-Host ""
-Write-Host -ForegroundColor DarkCyan "Starting installation of Git, Visual Studio Code, ADK, ADKPE and MDT"
-Write-Host ""
+      #  Copy-Item  $originalsetting -Destination "$Path\Settingsbackup.json" 
+    
+    }
+    catch {
 
-winget configure .\configuration.dsc.yaml ---disable-interactivity --accept-configuration-agreements
+    }
+
+    Write-Host -ForegroundColor DarkCyan "Enable experimental features to Winget"
+
+    $json =@'
+{
+    "$schema": "https://aka.ms/winget-settings.schema.json",
+
+    "experimentalFeatures": {
+        "pinning": true,
+        "dependencies": true,
+        "directMSI": true,
+        "uninstallPreviousArgument": true,
+        "configuration": true,
+        "windowsFeature": true
+      },
+}
+'@
+    $json | Out-File "$Path\settings.json" -Encoding ascii -Force
+
+
+    $Configuration | Out-File -FilePath .\configuration.dsc.yaml -Encoding ascii
+
+    winget configure show .\configuration.dsc.yaml
+
+    Start-Sleep -Seconds 2
+    Write-Host ""
+    Write-Host -ForegroundColor DarkCyan "Starting installation of Git, Visual Studio Code, ADK, ADKPE and MDT"
+    Write-Host ""
+
+    winget configure .\configuration.dsc.yaml ---disable-interactivity --accept-configuration-agreements
+}
