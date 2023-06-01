@@ -545,7 +545,7 @@ if (Confirm-WinGet) {
 
 #region Winget Configuration
 
-info = winget show
+$info = winget show
 $Path = "C:\Users\$env:Username\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState"
 if ((test-path  -path $Path) -eq $true)
 {
