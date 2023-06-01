@@ -1,6 +1,7 @@
 #Requires -RunAsAdministrator
 
-Param()
+[CmdletBinding()]
+param()
 
 #region YamlFile
 $fileyaml = @'
