@@ -1,66 +1,39 @@
 #Requires -RunAsAdministrator
 
-Param()
+[CmdletBinding()]
+param()
 
 #region YamlFile
-$fileyaml = @'
+$Configuration = @'
 # yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+# Reference: https://github.com/microsoft/winget-cli-restsource#building-the-client
 properties:
   resources:
-    - resource: WinGetPackage
-      id: Git_Package
+    - resource: Microsoft.Windows.Developer/DeveloperMode
       directives:
-        description: Install Git for Windows
-        module: Microsoft.WinGet.DSC
+        description: Enable Developer Mode
         allowPrerelease: true
       settings:
-        id: Git.Git
-        source: winget
-        ensure: present
-    - resource: WinGetPackage
-      id: vsCode_Package
+        Ensure: Present
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: vsPackage
       directives:
-        description: Install Visual Studio Code
-        module: Microsoft.WinGet.DSC
+        description: Install Visual Studio 2022 (any edition is OK)
         allowPrerelease: true
       settings:
-        id: Microsoft.VisualStudioCode
+        id: Microsoft.VisualStudio.2022.Community
         source: winget
-        ensure: present
-    - resource: WinGetPackage
-      id: ADK_Package
+    - resource: Microsoft.VisualStudio.DSC/VSComponents
+      dependsOn:
+        - vsPackage
       directives:
-        description: Install Microsoft ADK
-        module: Microsoft.WinGet.DSC
+        description: Install required VS workloads from project .vsconfig file
         allowPrerelease: true
       settings:
-        id: Microsoft.WindowsADK
-        version: '10.1.22621.1'
-        source: winget
-        ensure: present
-    - resource: WinGetPackage
-      id: ADKPE_Package
-      directives:
-        description: Install Microsoft ADK winPE addon
-        module: Microsoft.WinGet.DSC
-        allowPrerelease: true
-      settings:
-        id: Microsoft.ADKPEAddon
-        version: '10.1.22621.1'
-        source: winget
-        ensure: present
-    - resource: WinGetPackage
-      id: MDT_Package
-      directives:
-        description: Install Microsoft Deployment Toolkit
-        module: Microsoft.WinGet.DSC
-        allowPrerelease: true
-      settings:
-        id: Microsoft.DeploymentToolkit
-        version: '6.3.8456.1000'
-        source: winget
-        ensure: present  
-  configurationVersion: 0.2.0 
+        productId: Microsoft.VisualStudio.Product.Community
+        channelId: VisualStudio.17.Release
+        vsConfigFile: '${WinGetConfigRoot}\..\.vsconfig'
+  configurationVersion: 0.2.0
 '@
 #endregion
 
@@ -542,68 +515,13 @@ if (Confirm-WinGet) {
 }
 #endregion
 
-#region Winget Configuration
-info = winget show
-$Path = "C:\Users\$env:Username\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState"
-if ((test-path  -path $Path) -eq $true)
-{
-    try {
-        $originalsetting = "C:\Users\$ENV:USERNAME\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
+$Configuration | Out-File -FilePath .\configuration.dsc.yaml -Encoding ascii
 
-      #  Write-Host -ForegroundColor DarkCyan  "search file $originalsetting"
-      #  Write-Host -ForegroundColor DarkGray "Create Backup : settings.json to settingsbackup.json"
-
-      #  Copy-Item  $originalsetting -Destination "$Path\Settingsbackup.json" 
-    
-    }
-    catch {
-
-    }
-
-Write-Host -ForegroundColor DarkCyan "Enable experimental features to Winget"
-
-$json =@'
-{
-    "$schema": "https://aka.ms/winget-settings.schema.json",
-
-    "experimentalFeatures": {
-        "pinning": true,
-        "dependencies": true,
-        "directMSI": true,
-        "uninstallPreviousArgument": true,
-        "configuration": true,
-        "windowsFeature": true
-      },
-}
-'@
-$json | Out-File "$Path\settings.json" -Encoding ascii -Force
-
-$fileyaml | Out-File -FilePath .\osdsetup.yaml -Encoding ascii
-
-winget configure show .\osdsetup.yaml
+winget configure show .\configuration.dsc.yaml
 
 Start-Sleep -Seconds 2
 Write-Host ""
 Write-Host -ForegroundColor DarkCyan "Starting installation of Git, Visual Studio Code, ADK, ADKPE and MDT"
 Write-Host ""
 
-winget configure .\osdsetup.yaml ---disable-interactivity --accept-configuration-agreements
-
-#endregion
-Start-Sleep -Seconds 2
-
-#region Workflow
-Write-Host -ForegroundColor DarkCyan "Starting OSDCloud Workflow"
-Write-Host ""
-
-New-OSDCloudTemplate 
-New-OSDCloudWorkspace -WorkspacePath C:\OSDCloud
-Edit-OSDCloudWinPE -CloudDriver * -UseDefaultWallpaper
-
-Write-Host -ForegroundColor DarkCyan "You are ready for OSDCloud"
-
-}
-else {
-    Write-Host "settings.json not found"
-}
-#endregion
+winget configure .\configuration.dsc.yaml ---disable-interactivity --accept-configuration-agreements
