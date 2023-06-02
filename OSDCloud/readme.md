@@ -1,10 +1,10 @@
 <#PSScriptInfo
-.VERSION 23.6.1.2
-.GUID c59ab872-e655-4585-9b2b-3d99e6a77710
+.VERSION 23.6.1.1
+.GUID b38c7c7f-f8a5-4ea0-9828-9a5fbb94c25f
 .AUTHOR David Segura
 .COMPANYNAME David Segura
 .COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS WinGet
+.TAGS OSD OSDCloud Hyper-V
 .LICENSEURI 
 .PROJECTURI https://github.com/OSDeploy/PwshHub
 .ICONURI 
@@ -13,19 +13,12 @@
 .EXTERNALSCRIPTDEPENDENCIES 
 .RELEASENOTES
 #>
+#Requires -Modules @{ ModuleName="OSD"; ModuleVersion="23.5.26.1" }
 #Requires -PSEdition Desktop
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs 7zip using WinGet
+Sets New-OSDCloudVM defaults
 #>
 [CmdletBinding()]
 param()
-
-# Test WinGet
-if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
-    winget install --id 7zip.7zip -e --accept-source-agreements --accept-package-agreements
-}
-else {
-    Write-Error -Message 'WinGet is not installed.'
-}
