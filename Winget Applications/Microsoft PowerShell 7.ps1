@@ -18,6 +18,8 @@
 <#
 .DESCRIPTION
 Installs PowerShell 7 with options
+.LINK
+https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.3
 #>
 [CmdletBinding()]
 param()
@@ -30,8 +32,7 @@ else {
     Write-Error -Message 'WinGet is not installed.'
 }
 
-<#
-    PowerShell 7 default installation
+<#  PowerShell 7 default installation
     winget install --id Microsoft.PowerShell --exact --accept-source-agreements --accept-package-agreements
 
     PowerShell 7 installation parameters.  The first three are used in this installation script.
