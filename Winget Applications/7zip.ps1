@@ -22,7 +22,7 @@ Installs 7zip using WinGet
 param()
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
-    winget install --id 7zip.7zip -e --accept-source-agreements --accept-package-agreements
+    winget install --id 7zip.7zip -exact --accept-source-agreements --accept-package-agreements
 }
 else {
     Write-Error -Message 'WinGet is not installed.'
