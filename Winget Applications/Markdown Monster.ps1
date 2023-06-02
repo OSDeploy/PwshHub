@@ -13,6 +13,6 @@ else {
 }
 
 winget show --id WestWind.MarkdownMonster --versions
-winget install --id=WestWind.MarkdownMonster --exact
+winget install --id WestWind.MarkdownMonster --exact
 
 

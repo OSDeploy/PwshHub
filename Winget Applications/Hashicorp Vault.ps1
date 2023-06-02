@@ -13,5 +13,5 @@ else {
 }
 
 winget show --id Hashicorp.Vault --versions
-winget install --id=Hashicorp.Vault --exact
+winget install --id Hashicorp.Vault --exact
 

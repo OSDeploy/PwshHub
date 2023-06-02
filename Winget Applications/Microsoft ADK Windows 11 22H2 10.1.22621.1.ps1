@@ -24,10 +24,22 @@ https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install
 param()
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
-    winget show --id Microsoft.WindowsADK --versions
+    # Show package information
+    # winget show --id Microsoft.WindowsADK
+
+    # Show version information
+    # winget show --id Microsoft.WindowsADK --versions
+
+    # Install
     winget install --id Microsoft.WindowsADK --version 10.1.22621.1 --exact --accept-source-agreements --accept-package-agreements
     
-    winget show --id Microsoft.ADKPEAddon --versions
+    # Show package information
+    # winget show --id Microsoft.ADKPEAddon
+    
+    # Show version information
+    # winget show --id Microsoft.ADKPEAddon --versions
+    
+    # Install
     winget install --id Microsoft.ADKPEAddon --version 10.1.22621.1 --exact --accept-source-agreements --accept-package-agreements
     
     New-Item -Path 'C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs' -ItemType Directory -Force

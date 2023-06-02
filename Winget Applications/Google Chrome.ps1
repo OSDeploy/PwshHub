@@ -22,7 +22,13 @@ Installs Google Chrome using WinGet
 param()
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
-    winget show --id Google.Chrome --versions
+    # Show package information
+    # winget show --id Google.Chrome
+    
+    # Show version information
+    # winget show --id Google.Chrome --versions
+    
+    # Install
     winget install --id Google.Chrome --exact --accept-source-agreements --accept-package-agreements
 }
 else {

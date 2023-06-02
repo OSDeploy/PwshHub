@@ -16,13 +16,19 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs GitHub GitHubDesktop using WinGet
+Installs GitHub Desktop using WinGet
 #>
 [CmdletBinding()]
 param()
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
-    winget show --id GitHub.GitHubDesktop --versions
+    # Show package information
+    # winget show --id GitHub.GitHubDesktop
+    
+    # Show version information
+    # winget show --id GitHub.GitHubDesktop --versions
+    
+    # Install
     winget install --id GitHub.GitHubDesktop --exact --accept-source-agreements --accept-package-agreements
 }
 else {

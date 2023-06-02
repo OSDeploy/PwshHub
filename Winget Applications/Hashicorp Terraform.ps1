@@ -22,8 +22,14 @@ Installs Hashicorp Terraform using WinGet
 param()
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
-    winget show --id Hashicorp.Terraform --versions
-    winget install --id=Hashicorp.Terraform --exact --accept-source-agreements --accept-package-agreements
+    # Show package information
+    # winget show --id Hashicorp.Terraform
+    
+    # Show version information
+    # winget show --id Hashicorp.Terraform --versions
+    
+    # Install
+    winget install --id Hashicorp.Terraform --exact --accept-source-agreements --accept-package-agreements
 }
 else {
     Write-Error -Message 'WinGet is not installed.'

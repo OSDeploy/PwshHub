@@ -22,7 +22,13 @@ Installs Hashicorp Packer using WinGet
 param()
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
-    winget show --id Hashicorp.Packer --versions
+    # Show package information
+    # winget show --id Hashicorp.Packer
+    
+    # Show version information
+    # winget show --id Hashicorp.Packer --versions
+    
+    # Install
     winget install --id Hashicorp.Packer --exact --accept-source-agreements --accept-package-agreements
 }
 else {
