@@ -16,20 +16,24 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs Google Chrome using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
-param()
+param(
+    [Parameter(Mandatory = $true)]
+    [ValidateNotNullOrEmpty()]
+    [string]$id = 'Google.Chrome'
+)
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     # Show package information
-    # winget show --id Google.Chrome
+    # winget show --id $id
     
     # Show version information
-    # winget show --id Google.Chrome --versions
+    # winget show --id $id --versions
     
     # Install
-    winget install --id Google.Chrome --exact --accept-source-agreements --accept-package-agreements
+    winget install --id $id --exact --accept-source-agreements --accept-package-agreements
 }
 else {
     Write-Error -Message 'WinGet is not installed.'
