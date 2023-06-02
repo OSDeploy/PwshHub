@@ -13,7 +13,6 @@
 .EXTERNALSCRIPTDEPENDENCIES 
 .RELEASENOTES
 #>
-#Requires -PSEdition Desktop
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
@@ -24,7 +23,6 @@ https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powers
 [CmdletBinding()]
 param()
 
-# Test WinGet
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     winget install --id Microsoft.PowerShell --exact --scope machine --override '/Passive ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 ADD_PATH=1' --accept-source-agreements --accept-package-agreements
 }

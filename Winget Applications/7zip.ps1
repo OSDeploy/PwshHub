@@ -13,7 +13,6 @@
 .EXTERNALSCRIPTDEPENDENCIES 
 .RELEASENOTES
 #>
-#Requires -PSEdition Desktop
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
@@ -22,7 +21,6 @@ Installs 7zip using WinGet
 [CmdletBinding()]
 param()
 
-# Test WinGet
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     winget install --id 7zip.7zip -e --accept-source-agreements --accept-package-agreements
 }
