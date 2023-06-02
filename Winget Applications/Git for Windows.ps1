@@ -22,6 +22,7 @@ Installs 7zip using WinGet
 param()
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
+    winget show --id Git.Git --versions
     winget install --id Git.Git --exact --accept-source-agreements --accept-package-agreements
 }
 else {

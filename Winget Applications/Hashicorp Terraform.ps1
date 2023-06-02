@@ -1,16 +1,30 @@
+<#PSScriptInfo
+.VERSION 23.6.1.2
+.GUID 6c766924-9436-496c-9217-f36adcdccf01
+.AUTHOR Jérôme Bezet-Torres
+.COMPANYNAME Jérôme Bezet-Torres
+.COPYRIGHT (c) 2023 Jérôme Bezet-Torres. All rights reserved.
+.TAGS WinGet
+.LICENSEURI 
+.PROJECTURI https://github.com/OSDeploy/PwshHub
+.ICONURI 
+.EXTERNALMODULEDEPENDENCIES 
+.REQUIREDSCRIPTS 
+.EXTERNALSCRIPTDEPENDENCIES 
+.RELEASENOTES
+#>
 #Requires -RunAsAdministrator
+<#
+.DESCRIPTION
+Installs Hashicorp Terraform using WinGet
+#>
+[CmdletBinding()]
+param()
 
-# Install Winget
-if (-not (Get-Command 'Winget' -ErrorAction SilentlyContinue)) {
-    Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe -Verbose
-}
-
-if (Get-Command 'Winget' -ErrorAction SilentlyContinue) {
-    winget
+if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
+    winget show --id Hashicorp.Terraform --versions
+    winget install --id=Hashicorp.Terraform --exact --accept-source-agreements --accept-package-agreements
 }
 else {
-    Write-Error -Message 'Winget could not be installed.'
+    Write-Error -Message 'WinGet is not installed.'
 }
-
-winget show --id Hashicorp.Terraform --versions
-winget install --id=Hashicorp.Terraform --exact

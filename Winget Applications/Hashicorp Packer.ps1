@@ -1,6 +1,6 @@
 <#PSScriptInfo
 .VERSION 23.6.1.2
-.GUID 41dbd315-8edb-4398-be86-2d36aa0b63e0
+.GUID 6c128723-0f1b-4c22-8cf6-0a809a5b9757
 .AUTHOR Jérôme Bezet-Torres
 .COMPANYNAME Jérôme Bezet-Torres
 .COPYRIGHT (c) 2023 Jérôme Bezet-Torres. All rights reserved.
@@ -28,4 +28,3 @@ if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
 else {
     Write-Error -Message 'WinGet is not installed.'
 }
-
