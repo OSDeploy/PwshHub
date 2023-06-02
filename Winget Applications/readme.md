@@ -14,7 +14,7 @@ Copyright (c) Microsoft Corporation. All rights reserved.
 
 The winget command line utility enables installing applications and other packages from the command line.
 
-usage: winget  [<command>] [<options>]
+usage: winget  <command> <options>
 
 The following commands are available:
   install    Installs the given package
@@ -31,7 +31,7 @@ The following commands are available:
   export     Exports a list of the installed packages
   import     Installs all the packages in a file
 
-For more details on a specific command, pass it the help argument. [-?]
+For more details on a specific command, pass it the help argument. -?
 
 The following options are available:
   -v,--version              Display the version of the tool
