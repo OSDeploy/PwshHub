@@ -1,6 +1,6 @@
 <#PSScriptInfo
 .VERSION 23.6.1.2
-.GUID 33a5ca7f-0ec3-45db-a2bc-a446a635f730
+.GUID 758bd9c6-edbb-4d10-8a86-fb2d4a48ed03
 .AUTHOR David Segura
 .COMPANYNAME David Segura
 .COPYRIGHT (c) 2023 David Segura. All rights reserved.
@@ -20,7 +20,6 @@ Install Package using WinGet
 #>
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
     [string]$id = 'Notepad++.Notepad++'
 )

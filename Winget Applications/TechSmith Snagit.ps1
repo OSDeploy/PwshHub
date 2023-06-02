@@ -1,29 +1,39 @@
+<#PSScriptInfo
+.VERSION 23.6.1.2
+.GUID fb26c7de-05ac-4105-9187-942ac47c0a4b
+.AUTHOR David Segura
+.COMPANYNAME David Segura
+.COPYRIGHT (c) 2023 David Segura. All rights reserved.
+.TAGS WinGet
+.LICENSEURI 
+.PROJECTURI https://github.com/OSDeploy/PwshHub
+.ICONURI 
+.EXTERNALMODULEDEPENDENCIES 
+.REQUIREDSCRIPTS 
+.EXTERNALSCRIPTDEPENDENCIES 
+.RELEASENOTES
+#>
 #Requires -RunAsAdministrator
+<#
+.DESCRIPTION
+Install Package using WinGet
+#>
+[CmdletBinding()]
+param(
+    [ValidateNotNullOrEmpty()]
+    [string]$id = 'TechSmith.Snagit.2023'
+)
 
-# Install Winget
-if (-not (Get-Command 'Winget' -ErrorAction SilentlyContinue)) {
-    Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe -Verbose
-}
-
-if (Get-Command 'Winget' -ErrorAction SilentlyContinue) {
-    winget
+if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
+    # Show package information
+    # winget show --id $id
+    
+    # Show version information
+    # winget show --id $id --versions
+    
+    # Install
+    winget install --id $id --exact --accept-source-agreements --accept-package-agreements
 }
 else {
-    Write-Error -Message 'Winget could not be installed.'
+    Write-Error -Message 'WinGet is not installed.'
 }
-
-<#
-PS C:\> winget search TechSmith.Snagit
-
-Name        Id                    Version      Source
-------------------------------------------------------
-Snagit 2022 TechSmith.Snagit.2022 22.1.1.21427 winget
-Snagit 2021 TechSmith.Snagit.2021 21.4.5.16756 winget
-Snagit 2020 TechSmith.Snagit.2020 20.1.8.16558 winget
-Snagit 2023 TechSmith.Snagit.2023 23.1.1.27519 winget
-#>
-
-#winget install --id TechSmith.Snagit.2020 --exact
-#winget install --id TechSmith.Snagit.2021 --exact
-#winget install --id TechSmith.Snagit.2022 --exact
-winget install --id TechSmith.Snagit.2023 --exact

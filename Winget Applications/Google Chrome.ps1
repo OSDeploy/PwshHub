@@ -20,7 +20,6 @@ Install Package using WinGet
 #>
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
     [string]$id = 'Google.Chrome'
 )
