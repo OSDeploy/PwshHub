@@ -37,4 +37,3 @@ if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
 else {
     Write-Error -Message 'WinGet is not installed.'
 }
-winget install --id Microsoft.VisualStudio.2022.BuildTools --exact
