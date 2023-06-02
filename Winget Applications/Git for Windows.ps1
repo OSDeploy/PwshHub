@@ -16,7 +16,9 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs 7zip using WinGet
+Installs Git for Windows using WinGet
+.LINK
+https://gitforwindows.org/
 #>
 [CmdletBinding()]
 param()
