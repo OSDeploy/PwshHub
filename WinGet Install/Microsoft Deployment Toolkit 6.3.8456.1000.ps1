@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Install Package Microsoft Deployment Toolkit 6.3.8456.1000 using WinGet
 #>
 [CmdletBinding()]
 param(

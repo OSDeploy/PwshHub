@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Install Package Microsoft Azure Terrafy using WinGet
 #>
 [CmdletBinding()]
 param(

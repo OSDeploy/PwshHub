@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Install Package Mirosoft Bicep CLI using WinGet
 #>
 [CmdletBinding()]
 param(

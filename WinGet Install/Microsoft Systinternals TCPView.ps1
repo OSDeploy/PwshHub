@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Install Package Systinternals TCPView using WinGet
 #>
 [CmdletBinding()]
 param(

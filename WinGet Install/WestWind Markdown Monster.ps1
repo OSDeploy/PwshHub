@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs Hashicorp Terraform using WinGet
+Installs Hashicorp MarkDown Monster using WinGet
 #>
 [CmdletBinding()]
 param(
