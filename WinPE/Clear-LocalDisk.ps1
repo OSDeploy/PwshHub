@@ -1,6 +1,6 @@
 <#PSScriptInfo
 .VERSION 23.6.1.2
-.GUID 5eadea57-4339-47fb-ac29-67d52128335e
+.GUID 874c7a14-b050-4950-a1ef-cb70a0d60061
 .AUTHOR David Segura
 .COMPANYNAME David Segura
 .COPYRIGHT (c) 2023 David Segura. All rights reserved.
@@ -22,6 +22,7 @@ Clears the Local Disk
 [CmdletBinding()]
 param()
 
-if ((Get-MyComputerModel) -match 'Virtual') {
-    Set-DisRes 1440
+if ($env:SystemDrive -eq 'X:') {
+    # Clears all Local Disks.  Prompts for Confirmation
+    Clear-LocalDisk -Force -ErrorAction Stop
 }
