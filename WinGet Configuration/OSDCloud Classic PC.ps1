@@ -85,10 +85,10 @@ properties:
 $whoiam = [system.security.principal.windowsidentity]::getcurrent().name
 $isElevated = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 if ($isElevated) {
-    Write-Output "Running as $whoiam and IS Elevated"
+    Write-Host -ForegroundColor Green "[+] Running as $whoiam and IS Elevated"
 }
 else {
-    Write-Warning "Running as $whoiam and is NOT Elevated"
+    Write-Host -ForegroundColor Red "[!] Running as $whoiam and is NOT Elevated"
     Break
 }
 #endregion
@@ -200,10 +200,10 @@ function Confirm-NuGet {
     $AppName = "NuGet"
 
     if ($installedVersion = Get-InstalledVersion -AppName NuGet) {
-        Write-Host "$AppName $installedVersion is installed"
+        Write-Host -ForegroundColor Green "[+] $AppName $installedVersion is installed"
     }
     else {
-        Write-Error "$AppName is NOT installed or Failed to install automatically!"
+        Write-Host -ForegroundColor Red "[!] $AppName is NOT installed or Failed to install automatically!"
         return $false
     }
 
@@ -212,7 +212,7 @@ function Confirm-NuGet {
     $NuGetSource = Get-PackageSource -ProviderName NuGet
 
     if ($NuGetSource.Location -EQ $NuGetSrcURI) {
-        Write-Host "$AppName Package Source is already set to $NuGetSrcURI"
+        Write-Host -ForegroundColor Green "[+] $AppName Package Source is already set to $NuGetSrcURI"
         return $true
     }
     else {
@@ -221,11 +221,11 @@ function Confirm-NuGet {
         #check our work
         $NuGetSource = Get-PackageSource -ProviderName NuGet
         if ($NuGetSource.Location -EQ $NuGetSrcURI) {
-            Write-Host "$AppName Package Source is now set to $NuGetSrcURI"
+            Write-Host -ForegroundColor Green "[+] $AppName Package Source is now set to $NuGetSrcURI"
             return $true
         }
         else {
-            Write-Error "Failed to set $AppName Package Source to $NuGetSrcURI"
+            Write-Host -ForegroundColor Red "[!] Failed to set $AppName Package Source to $NuGetSrcURI"
             return $false
         }
     }
@@ -240,21 +240,21 @@ function Confirm-WinGet {
         $installedVersion = $installedVersion -replace '[a-zA-Z\-]'
     }
     else {
-        Write-Warning "$AppName is not installed. DesktopInstaller must be updated."
+        Write-Host -ForegroundColor Yellow "[-] $AppName is not installed. DesktopInstaller must be updated."
     }
 
     if (Confirm-DesktopAppInstaller) {
         if ($installedVersion = Get-InstalledVersion -AppName WinGet) {
-            Write-Host "$AppName $installedVersion has been installed"
+            Write-Host -ForegroundColor Green "[+] $AppName $installedVersion has been installed"
             return $true
         }
         else {
-            Write-Error "$AppName could NOT be installed!"
+            Write-Host -ForegroundColor Red "[!] $AppName could NOT be installed!"
             return $false
         }
     }
     else {
-        Write-Error "DesktopAppInstaller could NOT be updated to install WinGet!"
+        Write-Host -ForegroundColor Red "[!] DesktopAppInstaller could NOT be updated to install WinGet!"
         return $false
     }
 
@@ -266,12 +266,12 @@ function Confirm-UIXaml {
     $MaxVer = '2.7.999' # Keeps it under 2.8
 
     if (-not $isElevated) {
-        Write-Error "$AppName cannot be installed without admin elevation!"
+        Write-Host -ForegroundColor Red "[!] $AppName cannot be installed without admin elevation!"
         return $false
     }
 
     if (-not (Confirm-NuGet)) {
-        Write-Error "$AppName cannot be installed without NuGet"
+        Write-Host -ForegroundColor Red "[!] $AppName cannot be installed without NuGet"
         return $false
     }
 
@@ -279,27 +279,27 @@ function Confirm-UIXaml {
     $UIXamlPackage = Get-Package -Name $PkgName -MinimumVersion $MinVer -MaximumVersion $MaxVer -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($installedVersion = $UIXamlPackage.Version) {
         if ([version]$installedVersion -ge [version]$MinVer -and [version]$installedVersion -le [version]$MaxVer) {
-            Write-Host "$AppName NuGet Package $installedVersion is already installed but needs to be registered for $whoiam"
+            Write-Host -ForegroundColor Green "[+] $AppName NuGet Package $installedVersion is already installed but needs to be registered for $whoiam"
         }
         else {
-            Write-Host "$AppName NuGet Package $installedVersion is already installed but is not within versions $MinVer to $maxVer"
+            Write-Host -ForegroundColor Green "[+] $AppName NuGet Package $installedVersion is already installed but is not within versions $MinVer to $maxVer"
             $installedVersion = $null
         }
     }
 
     if (-not $installedVersion) {
         #Find-Package -Name $PkgName
-        Write-Host "Installing $AppName NuGet Package ..."
+        Write-Host -ForegroundColor Yellow "[-] Installing $AppName NuGet Package ..."
         #Install-Package -Name $PkgName -RequiredVersion $MaxVer -Force | Out-Null
         Install-Package -Name $PkgName -MinimumVersion $MinVer -MaximumVersion $MaxVer -Force -Source Nuget | Out-Null
 
         # check our work
         $UIXamlPackage = Get-Package -Name $PkgName -MinimumVersion $MinVer -MaximumVersion $MaxVer -ErrorAction SilentlyContinue | Select-Object -First 1
         if ($UIXamlPackage.Version) {
-            Write-Host "$AppName NuGet Package $($UIXamlPackage.Version) has been installed"
+            Write-Host -ForegroundColor Green "[+] $AppName NuGet Package $($UIXamlPackage.Version) has been installed"
         }
         else {
-            Write-Error "Failed to install $AppName NuGet Package!"
+            Write-Host -ForegroundColor Red "[!] Failed to install $AppName NuGet Package!"
             return $false
         }
     }
@@ -318,11 +318,11 @@ function Confirm-UIXaml {
 
     # check our work...
     if ($installedVersion = Get-InstalledVersion -AppName UIXaml) {
-        Write-Host "$AppName has been registered using $installedVersion"
+        Write-Host -ForegroundColor Green "[+] $AppName has been registered using $installedVersion"
         return $true
     }
     else {
-        Write-Error "$AppName was NOT registered!"
+        Write-Host -ForegroundColor Red "[!] $AppName was NOT registered!"
         return $false
     }
 }
@@ -334,21 +334,21 @@ function Confirm-VCLibs140 {
     $MinVer = '14.0.30704.0'
 
     if ($installedVersion = Get-InstalledVersion -AppName VCLibs140) {
-        Write-Host "$AppName $installedVersion is already installed"
+        Write-Host -ForegroundColor Green "[+] $AppName $installedVersion is already installed"
         if ([version]$installedVersion -ge [version]$MinVer) {
-            Write-Host "$AppName $installedVersion meets the mnimum required $MinVer"
+            Write-Host -ForegroundColor Green "[+] $AppName $installedVersion meets the mnimum required $MinVer"
             return $true
         }
         else {
-            Write-Warning "$AppName $installedVersion is already installed, but does not meet the minimum $MinVer"
+            Write-Host -ForegroundColor Yellow "[-] $AppName $installedVersion is already installed, but does not meet the minimum $MinVer"
         }
     }
     else {
-        Write-Warning "$AppName is not installed, attempting to download and install..."
+        Write-Host -ForegroundColor Yellow "[-] $AppName is not installed, attempting to download and install..."
     }
 
     if (-not $isElevated) {
-        Write-Error "$whoiam is NOT Elevated, cannot update or install $AppName..."
+        Write-Host -ForegroundColor Red "[!] $whoiam is NOT Elevated, cannot update or install $AppName..."
         return $false
     }
 
@@ -367,18 +367,18 @@ function Confirm-VCLibs140 {
         Invoke-WebRequest -UseBasicParsing -Uri $InstallerURI -OutFile $InstallerAPPX
     }
     catch {
-        Write-Error "Download failed : $_"
+        Write-Host -ForegroundColor Red "[!] Download failed : $_"
         return $false
     }
     Add-AppxPackage -Path $InstallerAPPX
 
     # check our work...
     if ($installedVersion = Get-InstalledVersion -AppName VCLibs140) {
-        Write-Host "$AppName $installedVersion has been installed"
+        Write-Host -ForegroundColor Green "[+] $AppName $installedVersion has been installed"
         return $true
     }
     else {
-        Write-Error "$AppName is NOT installed!"
+        Write-Host -ForegroundColor Yellow "[-] $AppName is NOT installed!"
         return $false
     }
 }
@@ -405,16 +405,16 @@ function Confirm-DesktopAppInstaller {
     # so that's our minimum DesktopAppInstaller version - at least the build revisons match (1251).
 
     if (-not (Confirm-VCLibs140)) {
-        Write-Error "Cannot update $AppName without first updating VCLibs"
+        Write-Host -ForegroundColor Yellow "[-] Cannot update $AppName without first updating VCLibs"
         return $false
     }
 
     if (-not (Confirm-UIXaml)) {
-        Write-Error "Cannot update $AppName without first updating UI.Xaml"
+        Write-Host -ForegroundColor Red "[!] Cannot update $AppName without first updating UI.Xaml"
         return $false
     }
 
-    Write-Host "Attempting to download and install the latest $AppName from GitHub"
+    Write-Host -ForegroundColor Yellow "[-] Attempting to download and install the latest $AppName from GitHub"
 
     # Download latest winget-cli (DesktopAppInstaller) from github https://github.com/microsoft/winget-cli/releases/latest
     $GitRepo = "microsoft/winget-cli"
@@ -429,21 +429,21 @@ function Confirm-DesktopAppInstaller {
         $Releases = Invoke-WebRequest -UseBasicParsing -Uri $ReleasesJSON | ConvertFrom-Json
     }
     catch {
-        Write-Error "Download failed : $_"
+        Write-Host -ForegroundColor Red "[!] Download failed : $_"
         return $false
     }
 
     $Release = $Releases | Where-Object { $_.prerelease -eq "true" } | Select-Object -First 1
-    Write-Host "Latest Release of DesktopAppInstaller from GitHub is $($Release.tag_name)"
+    Write-Host -ForegroundColor Gray "[?] Latest Release of DesktopAppInstaller from GitHub is $($Release.tag_name)"
     # remove any leading non-numeric characters, then any letters or hyphens
     $ReleaseVer = (($Release.tag_name) -replace '^[^0-9]*') -replace '[a-zA-Z\-]'
 
-    Write-Host "Downloading and Installing $AppName $($Release.tag_name)"
+    Write-Host -ForegroundColor Yellow "[-] Downloading and Installing $AppName $($Release.tag_name)"
 
     try {
         $ThisJSON = Invoke-WebRequest -UseBasicParsing -Uri "https://api.github.com/repos/$GitRepo/releases/$($Release.id)" | ConvertFrom-Json
     } catch {
-        Write-Error "Download failed : $_"
+        Write-Host -ForegroundColor Red "[!] Download failed : $_"
         return $false
     }
 
@@ -458,7 +458,7 @@ function Confirm-DesktopAppInstaller {
                 try {
                     Invoke-WebRequest -UseBasicParsing -Uri $asset.browser_download_url -OutFile $InstallerLicense
                 } catch {
-                    Write-Error "Download failed : $_"
+                    Write-Host -ForegroundColor Red "[!] Download failed : $_"
                     return $false
                 }
             }
@@ -469,7 +469,7 @@ function Confirm-DesktopAppInstaller {
                 try {
                     Invoke-WebRequest -UseBasicParsing -Uri $asset.browser_download_url -OutFile $InstallerFile
                 } catch {
-                    Write-Error "Download failed : $_"
+                    Write-Host -ForegroundColor Red "[!] Download failed : $_"
                     return $false
                 }
             }
@@ -479,7 +479,7 @@ function Confirm-DesktopAppInstaller {
                 try {
                     [string]$InstallerSHA265 = Invoke-RestMethod -Uri $asset.browser_download_url
                 } catch {
-                    Write-Warning "Download failed : $_"
+                    Write-Host -ForegroundColor Red "[!] Download failed : $_"
                 }
             }
 
@@ -487,23 +487,23 @@ function Confirm-DesktopAppInstaller {
     }
 
     if (-not (Test-Path -Path $InstallerLicense) -or -not (Test-Path -Path $InstallerFile) ) {
-        Write-Error "Installtion files not found"
+        Write-Host -ForegroundColor Red "[!] Installtion files not found"
         return $false
     }
 
     if (-not $InstallerSHA265) {
-        Write-Warning "Cannot validate installer (checksum unknown) but will continue anyway."
+        Write-Host -ForegroundColor Red "[!] Cannot validate installer (checksum unknown) but will continue anyway."
     } else {
         if ($InstallerSHA265.Length -ne 64) {
-            Write-Warning "Cannot validate installer (checksum not SHA265) but will continue anyway."
+            Write-Host -ForegroundColor Red "[!] Cannot validate installer (checksum not SHA265) but will continue anyway."
         } else {
             $InstallerSHA265 = $InstallerSHA265.ToUpper()
             $InstalerFileHash = (Get-FileHash -Algorithm SHA256 -Path $InstallerFile).Hash
             $InstalerFileHash = $InstalerFileHash.ToUpper()
             if ($InstallerSHA265 -eq $InstalerFileHash) {
-                Write-Host "Installer File Integrity was confirmed with SHA256 Hash"
+                Write-Host -ForegroundColor Green "[+] Installer File Integrity was confirmed with SHA256 Hash"
             } else {
-                Write-Error "Installer File Integrity FAILED! File hash ($InstalerFileHash) does not match published hash ($InstallerSHA265)"
+                Write-Host -ForegroundColor Red "[!] Installer File Integrity FAILED! File hash ($InstalerFileHash) does not match published hash ($InstallerSHA265)"
                 return $false
             }
         }
@@ -517,15 +517,15 @@ function Confirm-DesktopAppInstaller {
 
     $installedVersion = Get-InstalledVersion -AppName DesktopAppInstaller
     if ('' -ne $installedVersion -and ([version]$installedVersion -ge [version]$MinVer)) {
-        Write-Host "$AppName has been updated to $installedVersion"
+        Write-Host -ForegroundColor Green "[+] $AppName has been updated to $installedVersion"
         return $true
     }
     elseif ('' -eq $installedVersion) {
-        Write-Error "$AppName was NOT installed!"
+        Write-Host -ForegroundColor Red "[!] $AppName was NOT installed!"
         return $false
     }
     else {
-        Write-Error "$AppName $installedVersion is still too old!"
+        Write-Host -ForegroundColor Red "[!] $AppName $installedVersion is still too old!"
         return $false
     }
 }
@@ -536,10 +536,10 @@ if (Confirm-WinGet) {
     # Disable UAC Secure Desktop
     $PolicyKeys = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\' -ErrorAction SilentlyContinue
     if (-not $PolicyKeys.PromptOnSecureDesktop) {
-        Write-Host "UAC Secure Desktop is already disabled"
+        Write-Host -ForegroundColor Green "[+] UAC Secure Desktop is already disabled"
     }
     elseif ($PolicyKeys.PromptOnSecureDesktop -and -not($isElevated)) {
-        Write-Warning "Cannot disable UAC Secure Desktop. Helper will not be able to see the screen if elevation is required"
+        Write-Host -ForegroundColor Yellow "[-] Cannot disable UAC Secure Desktop. Helper will not be able to see the screen if elevation is required"
     }
     elseif ($PolicyKeys.PromptOnSecureDesktop -and $isElevated) {
         Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\' -Name PromptOnSecureDesktop -Value 0 -ErrorAction SilentlyContinue
@@ -547,7 +547,7 @@ if (Confirm-WinGet) {
         if (-not $PolicyKeys.PromptOnSecureDesktop) {
         }
         else {
-            Write-Warning "Failed to disable the UAC Secure Desktop. Helper will not be able to see the screen if elevation is required"
+            Write-Host -ForegroundColor Red "[!] Failed to disable the UAC Secure Desktop. Helper will not be able to see the screen if elevation is required"
         }
     }
 
@@ -578,7 +578,7 @@ if ((test-path  -path $Path) -eq $true)
 
     }
 
-Write-Host -ForegroundColor DarkCyan "Enable experimental features to Winget"
+Write-Host -ForegroundColor DarkCyan "[/]Enable experimental features to Winget"
 
 $json =@'
 {
@@ -602,7 +602,7 @@ winget configure show .\osdsetup.yaml
 
 Start-Sleep -Seconds 2
 Write-Host ""
-Write-Host -ForegroundColor DarkCyan "Starting installation of some sowtfare with winget"
+Write-Host -ForegroundColor DarkCyan "[/]Starting installation of some sowtfare with winget"
 Write-Host ""
 
 winget configure .\osdsetup.yaml ---disable-interactivity --accept-configuration-agreements
@@ -612,6 +612,6 @@ Start-Sleep -Seconds 2
 
 }
 else {
-    Write-Host "settings.json not found"
+    Write-Host -ForegroundColor Red "[!] settings.json not found"
 }
 #endregion
