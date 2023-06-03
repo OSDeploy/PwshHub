@@ -21,7 +21,7 @@ Install Package using WinGet
 [CmdletBinding()]
 param(
     [ValidateNotNullOrEmpty()]
-    [string]$id = '7zip.7zip'
+    [string]$id = 'Microsoft.DotNet.SDK.7 '
 )
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
