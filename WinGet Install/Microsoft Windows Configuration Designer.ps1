@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Windows Configuration Designer using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

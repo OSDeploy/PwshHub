@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Windows Admin Center using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Mirosoft .NET SDK 7.0 using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

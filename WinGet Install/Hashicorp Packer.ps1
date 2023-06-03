@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Hashicorp Packer using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

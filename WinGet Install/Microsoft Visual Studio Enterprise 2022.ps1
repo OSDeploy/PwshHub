@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Visual Studio Entreprise 2022 using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

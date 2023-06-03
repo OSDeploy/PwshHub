@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Git for Windows using WinGet
+Install Package using WinGet
 .LINK
 https://gitforwindows.org/
 #>

@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs Microsoft ADK and the Windows PE add-on for Windows 11, version 21H2, using WinGet
+Install Package using WinGet
 .LINK
 https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install
 #>

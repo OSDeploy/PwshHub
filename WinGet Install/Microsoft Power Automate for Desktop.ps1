@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Microsoft Power Automate for Desktop using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

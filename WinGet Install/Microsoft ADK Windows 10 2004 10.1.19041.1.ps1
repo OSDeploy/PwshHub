@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs Microsoft ADK and the Windows PE add-on for Windows 10, version 2004, using WinGet
+Install Package using WinGet
 .LINK
 https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install
 #>

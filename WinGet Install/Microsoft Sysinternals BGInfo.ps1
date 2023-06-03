@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Systinternals BGinfo using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

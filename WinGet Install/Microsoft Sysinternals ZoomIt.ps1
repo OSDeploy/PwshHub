@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Systinternals ZoomIt using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

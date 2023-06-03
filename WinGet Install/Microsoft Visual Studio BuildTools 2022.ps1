@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Microsoft Visual Studio BuildTools 2022 using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(
