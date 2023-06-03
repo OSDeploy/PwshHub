@@ -16,20 +16,23 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs GitHub Desktop using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
-param()
+param(
+    [ValidateNotNullOrEmpty()]
+    [string]$id = 'GitHub.GitHubDesktop'
+)
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     # Show package information
-    # winget show --id GitHub.GitHubDesktop
+    # winget show --id $id
     
     # Show version information
-    # winget show --id GitHub.GitHubDesktop --versions
+    # winget show --id $id --versions
     
     # Install
-    winget install --id GitHub.GitHubDesktop --exact --accept-source-agreements --accept-package-agreements
+    winget install --id $id --exact --accept-source-agreements --accept-package-agreements
 }
 else {
     Write-Error -Message 'WinGet is not installed.'

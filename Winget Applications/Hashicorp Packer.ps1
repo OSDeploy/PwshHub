@@ -16,20 +16,23 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs Hashicorp Packer using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
-param()
+param(
+    [ValidateNotNullOrEmpty()]
+    [string]$id = 'Hashicorp.Packer'
+)
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     # Show package information
-    # winget show --id Hashicorp.Packer
+    # winget show --id $id
     
     # Show version information
-    # winget show --id Hashicorp.Packer --versions
+    # winget show --id $id --versions
     
     # Install
-    winget install --id Hashicorp.Packer --exact --accept-source-agreements --accept-package-agreements
+    winget install --id $id --exact --accept-source-agreements --accept-package-agreements
 }
 else {
     Write-Error -Message 'WinGet is not installed.'

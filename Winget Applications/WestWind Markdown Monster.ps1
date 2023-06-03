@@ -1,6 +1,6 @@
 <#PSScriptInfo
 .VERSION 23.6.1.2
-.GUID 7235d336-16b3-4165-9ee3-76b9bc656c9e
+.GUID 4ef98699-6c5f-469c-9bb1-9fe67cb7b071
 .AUTHOR Jérôme Bezet-Torres
 .COMPANYNAME Jérôme Bezet-Torres
 .COPYRIGHT (c) 2023 Jérôme Bezet-Torres. All rights reserved.
@@ -16,12 +16,12 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Installs Hashicorp Terraform using WinGet
 #>
 [CmdletBinding()]
 param(
     [ValidateNotNullOrEmpty()]
-    [string]$id = 'Microsoft.Azure.Aztfy'
+    [string]$id = 'WestWind.MarkdownMonster'
 )
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {

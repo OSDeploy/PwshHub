@@ -16,22 +16,25 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs Git for Windows using WinGet
+Install Package using WinGet
 .LINK
 https://gitforwindows.org/
 #>
 [CmdletBinding()]
-param()
+param(
+    [ValidateNotNullOrEmpty()]
+    [string]$id = 'Git.Git'
+)
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     # Show package information
-    # winget show --id Git.Git
+    # winget show --id $id
     
     # Show version information
-    # winget show --id Git.Git --versions
+    # winget show --id $id --versions
     
     # Install
-    winget install --id Git.Git --exact --accept-source-agreements --accept-package-agreements
+    winget install --id $id --exact --accept-source-agreements --accept-package-agreements
 }
 else {
     Write-Error -Message 'WinGet is not installed.'
