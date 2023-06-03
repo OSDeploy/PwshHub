@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Google Chrome using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

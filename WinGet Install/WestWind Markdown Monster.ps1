@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs Hashicorp MarkDown Monster using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

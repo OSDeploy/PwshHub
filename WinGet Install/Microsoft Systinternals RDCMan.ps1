@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package  Systinternals RDCMan using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

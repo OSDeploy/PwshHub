@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package  7zip using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(

@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package Hashicorp Vault using WinGet
+Install Package using WinGet
 #>
 [CmdletBinding()]
 param(
