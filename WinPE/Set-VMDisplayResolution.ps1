@@ -4,7 +4,7 @@
 .AUTHOR David Segura
 .COMPANYNAME David Segura
 .COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS WinGet
+.TAGS WinPE
 .LICENSEURI 
 .PROJECTURI https://github.com/OSDeploy/PwshHub
 .ICONURI 

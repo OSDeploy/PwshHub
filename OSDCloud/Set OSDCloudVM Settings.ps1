@@ -24,8 +24,6 @@ Sets New-OSDCloudVM defaults
 param()
 
 # This is how to set your Hyper-V VM defaults
-
 if ((Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online).State -eq 'Enabled') {
-    
     Set-OSDCloudVMSettings -MemoryStartupGB 10 -ProcessorCount 2 -SwitchName 'Default Switch'
 }

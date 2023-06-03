@@ -4,7 +4,7 @@
 .AUTHOR David Segura
 .COMPANYNAME David Segura
 .COPYRIGHT (c) 2023 David Segura. All rights reserved.
-.TAGS WinGet
+.TAGS OSDCloud
 .LICENSEURI 
 .PROJECTURI https://github.com/OSDeploy/PwshHub
 .ICONURI 
@@ -16,12 +16,24 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Installs Microsoft ADK and the Windows PE add-on for Windows 11, version 22H2, MDT, and VSCode using WinGet
+Installs WinGet, Microsoft ADK and the Windows PE add-on for Windows 11, version 22H2, and MDT using WinGet
 .LINK
-https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install
+https://www.osdcloud.com/osdcloud/setup
 #>
 [CmdletBinding()]
 param()
+
+if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
+    Write-Host -Message 'WinGet is already installed.'
+}
+else {
+    try {
+        Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe -Verbose
+    }
+    catch {
+        Write-Error -Message 'WinGet could not be installed.'
+    }
+}
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
     # Microsoft ADK Windows 11 22H2 10.1.22621.1
@@ -35,9 +47,6 @@ if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
 
     # Microsoft Deployment Toolkit
     winget install --id Microsoft.DeploymentToolkit --version 6.3.8456.1000 --exact
-
-    # Microsoft Visual Studio Code
-    winget install --id Microsoft.VisualStudioCode --scope machine --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"' --accept-source-agreements --accept-package-agreements
 }
 else {
     Write-Error -Message 'WinGet is not installed.'
