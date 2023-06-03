@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Install Package Microsoft PowerToys using WinGet
 #>
 [CmdletBinding()]
 param(

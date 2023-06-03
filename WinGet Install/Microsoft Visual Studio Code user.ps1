@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Install Package Microsoft Visual Studio Code using WinGet
 #>
 [CmdletBinding()]
 param(

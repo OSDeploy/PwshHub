@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Install Package Visual Studio Professional 2022 using WinGet
 #>
 [CmdletBinding()]
 param(

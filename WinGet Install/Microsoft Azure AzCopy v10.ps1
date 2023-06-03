@@ -17,7 +17,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Install Package Microsoft Azure Azcopyv10 using WinGet
 #>
 [CmdletBinding()]
 param(

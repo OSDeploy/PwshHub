@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Install Package Systinternals Process Explorer using WinGet
 #>
 [CmdletBinding()]
 param(

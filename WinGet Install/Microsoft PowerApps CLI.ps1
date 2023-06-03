@@ -16,7 +16,7 @@
 #Requires -RunAsAdministrator
 <#
 .DESCRIPTION
-Install Package using WinGet
+Install Package Microsoft PowerApps CLI using WinGet
 #>
 [CmdletBinding()]
 param(
