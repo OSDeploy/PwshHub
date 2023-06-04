@@ -1,11 +1,2 @@
-function osdcloud-SetWindowsLanguage {
-    [CmdletBinding()]
-    param ()
-    Write-Host -ForegroundColor Yellow 'Verify the Language, Region, and Keyboard are set properly'
-    Start-Process 'ms-settings:regionlanguage' | Out-Null
-    $ProcessId = (Get-Process -Name 'SystemSettings').Id
-    if ($ProcessId) {
-        Wait-Process $ProcessId
-    }
-}
+Invoke-Expression (Invoke-RestMethod -Uri 'https://raw.githubusercontent.com/OSDeploy/OSD/master/cloud/modules/eq-oobe.psm1')
 osdcloud-SetWindowsLanguage
