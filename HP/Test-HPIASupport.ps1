@@ -17,6 +17,10 @@
 .DESCRIPTION
 Tests if a device is supported by HP Image Assistant
 #>
+
+Test-HPIASupport -Verbose
+
+
 function Test-HPIASupport {
     [CmdletBinding()]
     param(
