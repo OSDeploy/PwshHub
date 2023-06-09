@@ -33,5 +33,5 @@ try {
 catch {
     Install-Module Microsoft.Graph -Scope AllUsers -Verbose
 }
-
+Import-Module Microsoft.Graph
 Get-InstalledModule Microsoft.Graph

@@ -25,15 +25,11 @@ https://learn.microsoft.com/en-us/powershell/microsoftgraph/get-started?view=gra
 [CmdletBinding()]
 param()
 
-if ((Get-ExecutionPolicy -Scope CurrentUser) -eq 'Restricted') {
-    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+# This will toggle the MgProfile between v1.0 and beta
+if (Get-MgProfile | Where-Object {$_.Name -eq 'v1.0'}) {
+    Select-MgProfile -Name beta
 }
-
-try {
-    Get-InstalledModule Microsoft.Graph -ErrorAction Stop
+else {
+    Select-MgProfile -Name v1.0
 }
-catch {
-    Install-Module Microsoft.Graph -Scope CurrentUser -Verbose
-}
-
-Get-InstalledModule Microsoft.Graph
+Get-MgProfile

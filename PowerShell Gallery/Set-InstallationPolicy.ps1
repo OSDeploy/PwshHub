@@ -15,16 +15,14 @@
 #>
 <#
 .DESCRIPTION
-Install the Microsoft Graph PowerShell SDK
+Set the installation policy for a repository
 .LINK
-https://learn.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0
+https://learn.microsoft.com/en-us/powershell/module/powershellget/set-psrepository?view=powershellget-2.x
 #>
+[CmdletBinding()]
+param()
 
 if ((Get-PSRepository -Name PSGallery) -eq 'Untrusted') {
-    try {
-        Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-    }
-    catch {
-        Throw
-    }
+    Set-PSRepository -Name PSGallery -InstallationPolicy Trusted -Verbose
 }
+Get-PSRepository -Name PSGallery
