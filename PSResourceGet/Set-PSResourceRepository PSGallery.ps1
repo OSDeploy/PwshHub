@@ -1,6 +1,6 @@
 <#PSScriptInfo
 .VERSION 23.6.9.1
-.GUID f2a7a989-2955-46ef-973d-b979ed892b9b
+.GUID 659d2547-b72a-4a1e-a596-6a99849fe466
 .AUTHOR David Segura
 .COMPANYNAME David Segura
 .COPYRIGHT (c) 2023 David Segura. All rights reserved.
@@ -24,12 +24,14 @@ https://devblogs.microsoft.com/powershell/psresourceget-preview-is-now-available
 [CmdletBinding()]
 param()
 
-# To install from PowerShellGet 3.0 previews
-if (Get-Module -Name Microsoft.PowerShell.PSResourceGet -ListAvailable) {
-    Install-PSResource Microsoft.PowerShell.PSResourceGet -Prerelease -Verbose
+if (Get-Command Set-PSResourceRepository -ErrorAction SilentlyContinue) {
+    if ((Get-PSResourceRepository -Name PSGallery).Trusted -eq $false) {
+        Set-PSResourceRepository -Name PSGallery -Trusted
+    }
 }
 
-# To install from PowerShellGet 2.2.5
+# Microsoft.PowerShell.PSResourceGet is not installed
 else {
-    Install-Module -Name Microsoft.PowerShell.PSResourceGet -AllowPrerelease -Verbose
+    Write-Warning "Set-PSResourceRepository is not installed.  Use the following command"
+    Write-Host "Install-Module -Name Microsoft.PowerShell.PSResourceGet -AllowPrerelease -Verbose"
 }
