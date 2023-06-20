@@ -24,13 +24,13 @@ https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget
 param()
 
 if (Get-Command 'WinGet' -ErrorAction SilentlyContinue) {
-    Write-Host -Message 'WinGet is already installed.'
+    Write-Host 'WinGet is already installed.'
 }
 else {
     try {
         Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe -Verbose
     }
     catch {
-        Write-Error -Message 'WinGet could not be installed.'
+        Write-Error 'WinGet could not be installed.'
     }
 }
